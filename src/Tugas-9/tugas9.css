@@ -1,0 +1,23 @@
+.container-tugas9 {
+    border: 2px solid gray;
+    border-radius: 10px;
+    margin: 10px 35% 0 35%;
+    padding: 15px;
+  }
+  
+  form {
+    display: flex;
+  }
+  
+  h2 {
+    text-align: center;
+  }
+  
+  legend {
+    font-weight: bold;
+    margin: 0 20px 50px 0;
+  }
+  
+  button {
+    border-radius: 50px;
+  }
