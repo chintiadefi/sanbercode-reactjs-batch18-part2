@@ -1,56 +1,63 @@
 import React, {Component} from 'react'
 
-class Timer extends Component{
+class Tugas11 extends Component{
   constructor(props){
     super(props)
     this.state = {
-      countDown: 100,
-      time: new Date(),
-      showTask: true
+      time: 100,
+      date: new Date(),
+      visibleTime: true
     }
   }
 
-  currentTime() {
-      this.setState({
-          time: new Date()
-      })
-  }
-
   componentDidMount(){
-    this.countDownID = setInterval(
-      () => this.setState({countDown: this.state.countDown - 1}), 1000
+    if (this.props.start !== undefined){
+      this.setState({time: this.props.start})
+    }
+    this.timerID = setInterval(
+      () => this.tick(),
+      1000
     );
-    this.countDownID = setInterval(
-        () => this.setState(this.currentTime()), 1000
-      );
-  }
-
-  componentWillUnmount(){
-    this.setState({showTask: false});
   }
 
   componentDidUpdate(){
-      if (this.state.countDown === 0) {
-          this.componentWillUnmount()
+    if (this.state.visibleTime === true){
+      if (this.state.time <= 0){
+        this.setState({visibleTime: false})
       }
+    }
+  }
+
+  componentWillUnmount(){
+    clearInterval(this.timerID);
+  }
+
+  tick() {
+    this.setState({
+      time: this.state.time - 1,
+      date: new Date() 
+    });
   }
 
 
   render(){
     return(
-    <div>
-      {
-        this.state.showTask && (
-        <div style={{display: "flex", margin: "0 20% 0 20%"}}>
-        <h1 style={{marginRight: "50px"}}>Sekarang jam : {this.state.time.toLocaleTimeString()}</h1>
-        <h1>Hitung mundur : {this.state.countDown} </h1>
-        </div>
-        )
-      }
-    </div>
+      <>
+        {
+          this.state.visibleTime && (
+            <>
+              <h1 style={{float: "left"}}>
+                Sekarang jam - {this.state.date.toLocaleTimeString()}.
+              </h1>
+              <h1 style={{float: "right"}}>
+                hitung Mundur: {this.state.time}
+              </h1>
+            </>
+          )
+        }
+      </>
     )
   }
 }
 
-  export default Timer
-  
+export default Tugas11
